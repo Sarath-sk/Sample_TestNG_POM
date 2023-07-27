@@ -53,7 +53,9 @@ public class LoginPage {
 		Assert.isTrue(VerifySite.getText().contains("Dashboard"),"Site is not logged in");
 		Logout_btn.click();
 		Assert.isTrue((VerifyAdminArea.getText().contains("Admin area demo")), "Admin site is not loaded");
+		
 	}
+	
 
 
 
