@@ -22,7 +22,8 @@ public class test {
 	LoginPage lp;
 	ExtentReports extent;
 	ExtentSparkReporter spark;
-	//File DesFile;
+	File DesFile;
+	String DesFilePath = System.getProperty("user.dir")+"\\Screenshots\\";
 	
 	public test() {
 		driver = new EdgeDriver();
@@ -44,7 +45,17 @@ public class test {
 	public void TestcaseIfFailed(String title, String message, Exception e) {
 		ExtentTest test = this.extent.createTest(title);
 		test.fail(message + e.getMessage());
-		//this.Screenshot(driver, title);
+		TakesScreenshot scrshot = ((TakesScreenshot)driver);
+		test.addScreenCaptureFromBase64String(scrshot.getScreenshotAs(OutputType.BASE64));
+		
+//		try {
+//			this.Screenshot(driver, title);
+//		} catch (Exception e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}finally {
+//			test.addScreenCaptureFromPath(DesFilePath + title + ".png");
+//		}
 		
 		
 	}
@@ -54,14 +65,13 @@ public class test {
 		this.extent.flush();
 	}
 	
-	/*
-	 * public void Screenshot(WebDriver driver, String FilePath)throws Exception {
-	 * TakesScreenshot scrshot = ((TakesScreenshot)driver); File
-	 * SrcFile=scrshot.getScreenshotAs(OutputType.FILE); String DesFilePath =
-	 * System.getProperty("user.dir")+"\\Screenshots"+getName()+ DesFile= new
-	 * File("C:\\Users\\Sarath\\eclipse-workspace\\Sample_TestNG\\ScreenShots");
-	 * FileHandler.copy(SrcFile, DesFile); }
-	 */
+	public void Screenshot(WebDriver driver, String title)throws Exception {
+		TakesScreenshot scrshot = ((TakesScreenshot)driver);
+		File SrcFile=scrshot.getScreenshotAs(OutputType.FILE);
+//		DesFilePath = DesFilePath + title +".png";
+	    DesFile= new File(DesFilePath + title +".png");
+	    FileHandler.copy(SrcFile, DesFile);
+	}
 	
 	
 	
@@ -77,7 +87,7 @@ public class test {
 		 catch(Exception e){
 			 System.out.println("LoginPage is not accessible..!!" + e.getMessage()); 
 			 this.TestcaseIfFailed("SiteLogin", "Site login is not successfull!!", e);
-			 //this.TestcaseIfFailed(driver, DesFile, e);
+			 // this.TestcaseIfFailed(driver, DesFile, e);
 			 
 			 throw(e);
 			 //this.Screenshot();
