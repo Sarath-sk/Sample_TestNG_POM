@@ -46,7 +46,7 @@ public class LoginPage {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		Email.clear();
-		Email.sendKeys("admin@yurstore.com");
+		Email.sendKeys("admin@yourstore.com");
 		Pswd.clear();
 		Pswd.sendKeys("admin");
 		Login_btn.click();

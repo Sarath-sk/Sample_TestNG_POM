@@ -20,11 +20,12 @@ public class test {
 	
 	WebDriver driver;
 	LoginPage lp;
-	ExtentReports extent;
-	ExtentSparkReporter spark;
+	ExtentReports extent;  // intializing reports objects globally
+	ExtentSparkReporter spark;  // Type of extent report
 	File DesFile;
 	String DesFilePath = System.getProperty("user.dir")+"\\Screenshots\\";
 	
+	// Constructor
 	public test() {
 		driver = new EdgeDriver();
 		lp=new LoginPage(driver);
@@ -32,10 +33,10 @@ public class test {
 	}
 	@BeforeClass
 	public void report() {
-		extent = new ExtentReports();
+		extent = new ExtentReports(); // Object declaration
 		 spark = new ExtentSparkReporter("C:\\Users\\Sarath\\eclipse-workspace\\Sample_TestNG\\Reports\\report.html");
-		extent.attachReporter(spark);
-	}
+		extent.attachReporter(spark); // Attaching the type of report to extent report
+	} 
 	public void TestcaseIfPassed(String title, String message) {
 		
 		ExtentTest test = this.extent.createTest(title);
@@ -45,9 +46,9 @@ public class test {
 	public void TestcaseIfFailed(String title, String message, Exception e) {
 		ExtentTest test = this.extent.createTest(title);
 		test.fail(message + e.getMessage());
-		TakesScreenshot scrshot = ((TakesScreenshot)driver);
-		test.addScreenCaptureFromBase64String(scrshot.getScreenshotAs(OutputType.BASE64));
-		
+		TakesScreenshot scrshot = ((TakesScreenshot)driver);  // Screenshot object creation
+		test.addScreenCaptureFromBase64String(scrshot.getScreenshotAs(OutputType.BASE64)); // Attaching the screenshot to report
+		 
 //		try {
 //			this.Screenshot(driver, title);
 //		} catch (Exception e1) {
@@ -65,13 +66,13 @@ public class test {
 		this.extent.flush();
 	}
 	
-	public void Screenshot(WebDriver driver, String title)throws Exception {
-		TakesScreenshot scrshot = ((TakesScreenshot)driver);
-		File SrcFile=scrshot.getScreenshotAs(OutputType.FILE);
+//	public void Screenshot(WebDriver driver, String title)throws Exception {
+//		TakesScreenshot scrshot = ((TakesScreenshot)driver);
+//		File SrcFile=scrshot.getScreenshotAs(OutputType.FILE);
 //		DesFilePath = DesFilePath + title +".png";
-	    DesFile= new File(DesFilePath + title +".png");
-	    FileHandler.copy(SrcFile, DesFile);
-	}
+//	    DesFile= new File(DesFilePath + title +".png");
+//	    FileHandler.copy(SrcFile, DesFile);
+//	}
 	
 	
 	
